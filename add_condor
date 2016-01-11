@@ -1,0 +1,18 @@
+#!/bin/sh
+set -x
+SERVER="$1"
+
+scp ./condor/* $SERVER:~
+ssh $SERVER "
+cd /etc
+[ -d /etc/.git ] || git init
+git add /etc/condor/condor_config.local
+git commit -m 'Configuración original de debian para condor
+
+- /etc/condor/condor_config.local'
+
+sudo cp ~/etc-condor-condor-config.d-00hostname /etc/condor/config.d/00\$(hostname)
+sudo cp ~/etc-condor-condor_config.local /etc/condor/condor_config.local
+git commit -m \"Agregar \$(hostname) al cluster de condor.\"
+systemctl status condor && sudo systemctl restart condor || sudo systemctl start condor
+"
