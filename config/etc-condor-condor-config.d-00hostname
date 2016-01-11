@@ -1,20 +1,11 @@
 BIND_ALL_INTERFACES = TRUE
 DAEMON_LIST = STARTD, SCHEDD, COLLECTOR, NEGOTIATOR, MASTER
-CONDOR_HOST = notron.local
-ALLOW_WRITE = notron.local 127.0.0.1 localhost notron *.inmegen.gob.mx
+ALLOW_WRITE = $(HOSTNAME).local 127.0.0.1 localhost $(HOSTNAME) *.inmegen.gob.mx
 
-# always start jobs once they are submitted
 START = TRUE
-# never suspend jobs
 SUSPEND = FALSE
-# always continue jobs
 CONTINUE = TRUE
-# never preempt
 PREEMPT = FALSE
-# never kill
 KILL = FALSE
 
-
-
-NUM_SLOTS = 28
 TRUST_UID_DOMAIN = TRUE
