@@ -5,8 +5,11 @@ SERVER="$1"
 scp ./config/* $SERVER:~
 ssh -t $SERVER "
 set -x
+sudo apt-get install git condor
 cd /etc
 [ -d /etc/.git ] || sudo git init
+sudo git config --global user.name 'Sysadmin'
+sudo git config --global user.email 'bioinformatica@inmegen.gob.mx'
 sudo git add /etc/condor/condor_config.local
 sudo git commit -m 'Configuración original de debian para condor
 
